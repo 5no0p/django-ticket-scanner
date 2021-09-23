@@ -1,6 +1,6 @@
 import environ
 
-root = environ.Path(__file__) - 3  # get root of the project
+root = environ.Path(__file__) - 2  # get root of the project
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, True),

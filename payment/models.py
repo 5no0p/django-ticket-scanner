@@ -21,4 +21,8 @@ class Payment(models.Model):
     ticket = models.OneToOneField(Ticket,related_name="payment_info", on_delete=models.CASCADE)
     amount_of_payment = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=1, choices=PAYE_STAUTS_CHOICES)
+    purchased_at = models.DateField(auto_now_add=True, null=True)
     screenshot = models.ImageField(upload_to ='payment/screenshots/')
+
+    def __str__(self):
+        return str(self.uuid)

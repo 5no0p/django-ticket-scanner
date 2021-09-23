@@ -13,3 +13,6 @@ class QRcodeGenerator(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     qrcode = models.CharField(max_length=500)
     qrimage = models.ImageField(upload_to ='QRcode/')
+
+    def __str__(self):
+         return self.qrcode
