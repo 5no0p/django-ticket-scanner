@@ -20,4 +20,7 @@ class Event(models.Model):
     slug = models.SlugField(max_length=250)
     discripton = models.CharField(max_length=350)
     active_in = DateTimeRangeField(default=default_active_in) 
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,related_name="owned_events", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
