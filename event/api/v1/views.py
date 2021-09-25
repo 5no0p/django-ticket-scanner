@@ -7,3 +7,5 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    lookup_field = 'uuid'
+    

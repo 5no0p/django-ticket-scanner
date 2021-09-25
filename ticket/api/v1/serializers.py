@@ -17,7 +17,7 @@ class UserScanLogsSerializer(serializers.ModelSerializer):
 
 class EventGategorySerializer(serializers.ModelSerializer):
     class Meta:
-        models = Event
+        model = Event
         fields = ['uuid', 'name']
 class CategoryTicketSerializer(serializers.ModelSerializer):
     event = EventGategorySerializer()
