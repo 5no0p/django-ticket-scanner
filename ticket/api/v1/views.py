@@ -6,7 +6,8 @@ from ticket.models import Ticket,Category,ScanLogs
 class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
-    #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    lookup_fields = ['uuid']
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
