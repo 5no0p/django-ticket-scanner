@@ -1,3 +1,4 @@
+from django.db import models
 from rest_framework import serializers
 from ticket.models import Ticket,Category,ScanLogs
 from payment.models import Payment
@@ -14,10 +15,15 @@ class UserScanLogsSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username','phoneNumber']
 
+class EventGategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        models = Event
+        fields = ['uuid', 'name']
 class CategoryTicketSerializer(serializers.ModelSerializer):
+    event = EventGategorySerializer()
     class Meta:
         model = Category
-        fields = ['name']
+        fields = ['name','event']
 
 class TicketCategorySerializer(serializers.ModelSerializer):
     class Meta:

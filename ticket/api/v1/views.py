@@ -7,7 +7,7 @@ class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    lookup_field = ['uuid']
+    lookup_field = 'uuid'
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()

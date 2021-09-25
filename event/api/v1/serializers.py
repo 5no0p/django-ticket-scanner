@@ -8,3 +8,4 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ['uuid', 'name', 'active_in', 'slug', 'discripton', 'owner']
+        
