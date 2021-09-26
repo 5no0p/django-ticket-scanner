@@ -1,7 +1,5 @@
-from django.db import models
-from django.db.models import fields
 from rest_framework import serializers
-from qrcode.models import QRcodeGenerator
+from qrcode.models import QrcodeGenerator
 from ticket.models import Ticket
 from ticket.api.v1.serializers import CategoryTicketSerializer
 
@@ -11,7 +9,8 @@ class TicketQRcodeSerializer(serializers.ModelSerializer):
         model = Ticket
         fields = ['uuid', 'name', 'validity', "extral_info" ,'category']
 
-class QRcodeGeneratorSerializer(serializers.ModelSerializer):
+class QrcodeGeneratorSerializer(serializers.ModelSerializer):
+    ticket = TicketQRcodeSerializer()
     class Meta:
-        model = QRcodeGenerator
-        fields = ['uuid', 'ticket', 'qrcode', 'qrimage']
+        model = QrcodeGenerator
+        fields = ['id','uuid', 'ticket', 'qrcode', 'qrimage']

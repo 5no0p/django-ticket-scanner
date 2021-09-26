@@ -3,7 +3,7 @@ from rest_framework import routers
 from qrcode.api.v1 import views
 
 router = routers.DefaultRouter()
-router.register(r'qrcodes', views.QRcodeGeneratorViewSet)
+router.register(r'qrcodes', views.QrcodeGeneratorViewSet)
 
 
 urlpatterns = [

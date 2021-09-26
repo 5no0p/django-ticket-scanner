@@ -1,9 +1,10 @@
 from rest_framework import viewsets
 from rest_framework import permissions
-from qrcode.api.v1.serializers import QRcodeGeneratorSerializer
-from qrcode.models import QRcodeGenerator
+from qrcode.api.v1.serializers import QrcodeGeneratorSerializer
+from qrcode.models import QrcodeGenerator
 
-class QRcodeGeneratorViewSet(viewsets.ModelViewSet):
-    queryset = QRcodeGenerator.objects.all()
-    serializer_class = QRcodeGeneratorSerializer
+class QrcodeGeneratorViewSet(viewsets.ModelViewSet):
+    queryset = QrcodeGenerator.objects.all()
+    serializer_class = QrcodeGeneratorSerializer
     #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    lookup_field = 'qrcode'

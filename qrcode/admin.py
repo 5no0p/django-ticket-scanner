@@ -1,7 +1,7 @@
 from django.contrib import admin
-from qrcode.models import QRcodeGenerator
+from qrcode.models import QrcodeGenerator
 
-class QRcodeGeneratorAdmin(admin.ModelAdmin):
+class QrcodeGeneratorAdmin(admin.ModelAdmin):
     pass
 
-admin.site.register(QRcodeGenerator, QRcodeGeneratorAdmin)
+admin.site.register(QrcodeGenerator, QrcodeGeneratorAdmin)
