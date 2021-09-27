@@ -6,5 +6,5 @@ from qrcode.models import QrcodeGenerator
 class QrcodeGeneratorViewSet(viewsets.ModelViewSet):
     queryset = QrcodeGenerator.objects.all()
     serializer_class = QrcodeGeneratorSerializer
-    #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     lookup_field = 'qrcode'
