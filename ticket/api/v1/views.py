@@ -15,6 +15,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class ScanLogsViewSet(viewsets.ModelViewSet):
-    queryset = ScanLogs.objects.all()
+    queryset = ScanLogs.objects.all().order_by('-scan_time')
     serializer_class = ScanLogsSerializer
     #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+  
