@@ -9,10 +9,10 @@ class QrcodeGenerator(models.Model):
     uuid = models.UUIDField(
          primary_key = False,
          default = uuid.uuid4,
-         editable = False)
+         editable = False,unique=True)
     ticket = models.ForeignKey(Ticket,related_name='ticket_qrcode', on_delete=models.CASCADE)
-    qrcode = models.CharField(max_length=500)
-    qrimage = models.ImageField(upload_to ='QRcode/')
+    qrcode = models.CharField(max_length=500,unique=True)
+    qrimage = models.ImageField(upload_to ='QRcode/', null=True)
 
     def __str__(self):
          return self.qrcode

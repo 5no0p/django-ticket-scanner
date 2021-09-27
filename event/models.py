@@ -15,9 +15,9 @@ class Event(models.Model):
     uuid = models.UUIDField(
          primary_key = False,
          default = uuid.uuid4,
-         editable = False)
+         editable = False,unique=True)
     name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=250)
+    slug = models.SlugField(max_length=250,null=True)
     discripton = models.CharField(max_length=350)
     active_in = DateTimeRangeField(default=default_active_in) 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,related_name="owned_events", on_delete=models.CASCADE)

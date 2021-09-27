@@ -17,10 +17,10 @@ class Category(models.Model):
     uuid = models.UUIDField(
          primary_key = False,
          default = uuid.uuid4,
-         editable = False)
+         editable = False,unique=True)
     name = models.CharField(max_length=150)
     price= models.DecimalField(max_digits=10, decimal_places=2)
-    discripton = models.CharField(max_length=350)
+    discripton = models.CharField(max_length=350,null=True)
     event = models.ForeignKey(Event, related_name="ticket_categories", on_delete=models.CASCADE)
 
     def __str__(self):
@@ -31,7 +31,7 @@ class Ticket(models.Model):
     uuid = models.UUIDField(
          primary_key = False,
          default = uuid.uuid4,
-         editable = False)
+         editable = False,unique=True)
     name = models.CharField(max_length=150)
     #purchased_at = models.DateField(auto_now_add=True)
     validity = models.BooleanField()
