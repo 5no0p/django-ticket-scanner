@@ -23,7 +23,7 @@ class Payment(models.Model):
     amount_of_payment = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=1, choices=PAYE_STAUTS_CHOICES)
     purchased_at = models.DateField(auto_now_add=True, null=True)
-    screenshot = models.ImageField(upload_to ='payment/screenshots/', null=True)
+    screenshot = models.ImageField(upload_to ='payment/screenshots/', null=True ,blank=True)
 
     def __str__(self):
         return str(self.uuid)
