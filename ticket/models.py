@@ -36,7 +36,8 @@ class Ticket(models.Model):
     validity = models.BooleanField(default=True)
     category = models.ForeignKey(Category,related_name="tickets",null=True ,on_delete=models.CASCADE)
     table = models.IntegerField(null=True)
-    #extral_info = JSONField()
+    qrcode = models.CharField(max_length=100,unique=True,null=True,blank=True)
+
 
     def __str__(self):
         return self.name

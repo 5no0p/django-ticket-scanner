@@ -33,6 +33,7 @@ DJANGO_APPS = [
 
 EXTENSIONS_APPS = [
     'rest_framework',
+    'django_filters',
     'rest_framework.authtoken',
     'rest_auth',
     'allauth',
@@ -45,7 +46,6 @@ EXTENSIONS_APPS = [
 OWEND_APPS = [
     'users',
     'payment',
-    'qrcode',
     'ticket',
     'event'
 ]

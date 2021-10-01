@@ -4,7 +4,7 @@ from ticket.models import Ticket,Category,ScanLogs
 from payment.models import Payment
 from users.models import User
 from event.models import Event
-from qrcode.models import QrcodeGenerator
+#from qrcode.models import QrcodeGenerator
 
 class UserPaymentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -48,18 +48,18 @@ class PaymentTicketSerializer(serializers.ModelSerializer):
         #fields = ['uuid', 'purchased_by','amount_of_payment','status','purchased_at','screenshot']
         exclude = ['id','ticket']
 
-class QrcodeTicketSerializer(serializers.ModelSerializer):
-    class Meta:
-        model= QrcodeGenerator
-        fields= ['uuid', 'qrcode']
+# class QrcodeTicketSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model= QrcodeGenerator
+#         fields= ['uuid', 'qrcode']
 
 class TicketSerializer(serializers.ModelSerializer):
     payment_info = PaymentTicketSerializer()
     category = CategoryTicketSerializer()
-    ticket_qrcode = QrcodeTicketSerializer(many=True)
+    #ticket_qrcode = QrcodeTicketSerializer(many=True)
     class Meta:
         model = Ticket
-        fields = ['uuid', 'name', 'category', 'validity', "payment_info",'table','ticket_qrcode']
+        fields = ['uuid', 'name', 'category', 'validity', "payment_info",'table','qrcode']
 
 class CategorySerializer(serializers.ModelSerializer):
     event = EventCategorySerializer()

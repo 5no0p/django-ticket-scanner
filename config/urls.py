@@ -9,6 +9,5 @@ urlpatterns = [
     path('',include('users.urls')),
     path('',include('ticket.urls')),
     path('',include('event.urls')),
-    path('',include('qrcode.urls')),
     path('',include('payment.urls')),
 ]
