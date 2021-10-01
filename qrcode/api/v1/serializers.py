@@ -7,10 +7,10 @@ class TicketQRcodeSerializer(serializers.ModelSerializer):
     category = CategoryTicketSerializer()
     class Meta:
         model = Ticket
-        fields = ['uuid', 'name', 'validity', "extral_info" ,'category']
+        fields = ['uuid', 'name', 'validity', "table" ,'category']
 
 class QrcodeGeneratorSerializer(serializers.ModelSerializer):
     ticket = TicketQRcodeSerializer()
     class Meta:
         model = QrcodeGenerator
-        fields = ['id','uuid', 'ticket', 'qrcode', 'qrimage']
+        fields = ['id','uuid', 'ticket', 'qrcode']

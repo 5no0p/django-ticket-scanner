@@ -33,11 +33,10 @@ class Ticket(models.Model):
          default = uuid.uuid4,
          editable = False,unique=True)
     name = models.CharField(max_length=150)
-    #purchased_at = models.DateField(auto_now_add=True)
     validity = models.BooleanField(default=True)
     category = models.ForeignKey(Category,related_name="tickets",null=True ,on_delete=models.CASCADE)
-    #purchased_by = models.OneToOneField(settings.AUTH_USER_MODEL,related_name="tickets", on_delete=models.CASCADE)
-    extral_info = JSONField()
+    table = models.IntegerField(null=True)
+    #extral_info = JSONField()
 
     def __str__(self):
         return self.name

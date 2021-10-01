@@ -51,7 +51,7 @@ class PaymentTicketSerializer(serializers.ModelSerializer):
 class QrcodeTicketSerializer(serializers.ModelSerializer):
     class Meta:
         model= QrcodeGenerator
-        fields= ['uuid', 'qrimage', 'qrcode']
+        fields= ['uuid', 'qrcode']
 
 class TicketSerializer(serializers.ModelSerializer):
     payment_info = PaymentTicketSerializer()
@@ -59,7 +59,7 @@ class TicketSerializer(serializers.ModelSerializer):
     ticket_qrcode = QrcodeTicketSerializer(many=True)
     class Meta:
         model = Ticket
-        fields = ['uuid', 'name', 'category', 'validity', "payment_info",'extral_info','ticket_qrcode']
+        fields = ['uuid', 'name', 'category', 'validity', "payment_info",'table','ticket_qrcode']
 
 class CategorySerializer(serializers.ModelSerializer):
     event = EventCategorySerializer()
