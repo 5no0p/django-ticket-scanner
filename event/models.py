@@ -4,6 +4,7 @@ from django.utils import timezone
 from datetime import timedelta
 
 from django.db import models
+from django.utils.text import slugify
 from django.contrib.postgres.fields import DateTimeRangeField
 from django.conf import settings
 
@@ -24,3 +25,7 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Event, self.save(*args, **kwargs))

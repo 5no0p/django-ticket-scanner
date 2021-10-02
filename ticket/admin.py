@@ -4,6 +4,7 @@ from django.utils.translation import ngettext
 from ticket.models import Ticket,Category,ScanLogs
 from ticket.actions import make_valid
 class TicketAdmin(admin.ModelAdmin):
+    exclude = ('qrcode',)
     list_display = ['uuid', 'name', 'validity', 'category', 'table']
     ordering = ['category']
     actions = [make_valid]

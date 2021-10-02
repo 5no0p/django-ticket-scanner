@@ -16,11 +16,16 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
+    lookup_field = 'uuid'
+    filter_backeds = [DjangoFilterBackend]
+    filterset_fields = ['category','validity']
+
 
 class ScanLogsViewSet(viewsets.ModelViewSet):
     queryset = ScanLogs.objects.all()#.order_by('-scan_time')
     serializer_class = ScanLogsSerializer
     permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
+    lookup_field = 'uuid'
     filter_backends = [DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter]
     filterset_fields = '__all__'
     search_fields = '__all__'
