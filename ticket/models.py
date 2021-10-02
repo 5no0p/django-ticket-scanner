@@ -1,7 +1,7 @@
 import uuid
 
-from django.db import models
-from django.db.models.fields.json import JSONField
+from django.db import models, transaction
+from colorfield.fields import ColorField
 from event.models import Event
 from django.conf import settings
 
@@ -19,6 +19,7 @@ class Category(models.Model):
          default = uuid.uuid4,
          editable = False,unique=True)
     name = models.CharField(max_length=150)
+    color = ColorField(default='#000000')
     price= models.DecimalField(max_digits=10, decimal_places=2)
     discripton = models.CharField(max_length=350,null=True)
     event = models.ForeignKey(Event, related_name="ticket_categories", on_delete=models.CASCADE)
@@ -41,6 +42,33 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.name
+
+    @transaction.atomic
+    def save(self, *args, **kwargs):
+        if not self.qrcode:
+            import secrets
+            import string
+
+            special_chars = '_!/?@#$%^&*'
+            chars = string.ascii_letters + string.digits + special_chars
+            special_chars = '_!/?'
+            length = 30
+
+            while True:
+                passwd = ''.join([secrets.choice(chars) for i in range(length - 1)])
+                passwd += secrets.choice(special_chars)
+                if (any(s.islower() for s in passwd) and 
+                    any(s.isupper() for s in passwd) and 
+                    any(s.isdigit() for s in passwd)):
+                        break
+        
+            
+            self.qrcode = passwd
+            print(passwd)
+        # VQvnW1Uy22F?
+        super(Ticket, self).save(*args, **kwargs)
+
+
 
 class ScanLogs(models.Model):
     ticket = models.ForeignKey(Ticket,related_name="scan_logs", on_delete=models.CASCADE)

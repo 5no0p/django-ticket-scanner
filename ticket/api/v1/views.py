@@ -9,8 +9,8 @@ class TicketViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
     lookup_field = 'uuid'
     filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-    filterset_fields = ['category','validity']
-    search_fields = ['uuid', 'category__event', 'name']
+    filterset_fields = ['category','validity','qrcode']
+    search_fields = ['qrcode']
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()

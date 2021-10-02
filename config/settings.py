@@ -38,9 +38,11 @@ EXTENSIONS_APPS = [
     'rest_auth',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'rest_auth.registration',
     'corsheaders',
     'whitenoise.runserver_nostatic',
+    'colorfield',
     ]
 
 OWEND_APPS = [
