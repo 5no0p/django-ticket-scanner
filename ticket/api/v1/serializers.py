@@ -1,4 +1,4 @@
-from django.db.models import fields
+
 from rest_framework import serializers
 from ticket.models import Ticket,Category,ScanLogs
 from payment.models import Payment
@@ -14,7 +14,7 @@ class UserPaymentSerializer(serializers.ModelSerializer):
 class UserScanLogsSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username','phoneNumber']
+        fields = ['username']
 
 class EventGategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,7 +24,7 @@ class CategoryTicketSerializer(serializers.ModelSerializer):
     event = EventGategorySerializer()
     class Meta:
         model = Category
-        fields = ['name','event']
+        fields = ['name','event', 'color']
 
 class TicketCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,7 +34,7 @@ class TicketCategorySerializer(serializers.ModelSerializer):
 class TicketScanLogsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
-        fields = ['uuid','name', 'validity']
+        fields = ['uuid']
 
 class EventCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -63,14 +63,16 @@ class TicketSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     event = EventCategorySerializer()
-    tickets = TicketCategorySerializer(many=True)
+    #tickets = TicketCategorySerializer(many=True)
     class Meta:
         model = Category
-        fields = ['name', 'price', 'discripton', 'event','tickets']
+        fields = ['name', 'price', 'discripton', 'event', 'color']
 
 class ScanLogsSerializer(serializers.ModelSerializer):
-    scanned_by = UserScanLogsSerializer()
-    ticket = TicketScanLogsSerializer()
+    scanned_by = UserScanLogsSerializer(read_only=True)
+    ticket = TicketScanLogsSerializer(read_only=True)
     class Meta:
         model = ScanLogs
-        fields = ['ticket', 'scan_time', 'scanned_by', 'status_recorded']
+        fields = ['id', 'ticket', 'scan_time', 'scanned_by', 'status_recorded']
+
+    

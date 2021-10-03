@@ -4,8 +4,9 @@ from event.api.v1.serializers import EventSerializer
 from event.models import Event
 
 class EventViewSet(viewsets.ModelViewSet):
-    queryset = Event.objects.all().order_by('-active_in')
+    queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     lookup_field = 'uuid'
+    ordering = ['active_in']
     

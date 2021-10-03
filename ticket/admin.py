@@ -13,7 +13,18 @@ class CategoryAdmin(admin.ModelAdmin):
     pass
 
 class ScanLogsAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['get_ticket', 'scan_time', 'status_recorded', 'get_event', 'scanned_by']
+    ordering = ['-scan_time']
+    list_filter = ['status_recorded','scanned_by', 'ticket__category__event__name']
+
+    @admin.display(ordering='ticket__uuid', description='Ticket')
+    def get_ticket(self, obj):
+        return obj.ticket.uuid
+
+    @admin.display(ordering='ticket__category__event__name', description='Event')
+    def get_event(self, obj):
+        return obj.ticket.category.event.name
+
 
 admin.site.register(ScanLogs, ScanLogsAdmin)
 admin.site.register(Category, CategoryAdmin)

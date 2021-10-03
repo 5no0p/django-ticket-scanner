@@ -17,7 +17,8 @@ class Category(models.Model):
     uuid = models.UUIDField(
          primary_key = False,
          default = uuid.uuid4,
-         editable = False,unique=True)
+         editable = False,
+         unique=True)
     name = models.CharField(max_length=150)
     color = ColorField(default='#000000')
     price= models.DecimalField(max_digits=10, decimal_places=2)
