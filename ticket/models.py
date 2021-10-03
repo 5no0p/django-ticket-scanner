@@ -50,14 +50,13 @@ class Ticket(models.Model):
             import secrets
             import string
 
-            special_chars = '_!/?@#$%^&*'
-            chars = string.ascii_letters + string.digits + special_chars
+            chars = string.ascii_letters + string.digits
             special_chars = '_!/?'
             length = 30
 
             while True:
                 passwd = ''.join([secrets.choice(chars) for i in range(length - 1)])
-                passwd += secrets.choice(special_chars)
+                #passwd += secrets.choice(special_chars)
                 if (any(s.islower() for s in passwd) and 
                     any(s.isupper() for s in passwd) and 
                     any(s.isdigit() for s in passwd)):

@@ -9,10 +9,10 @@ class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
     permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
-    lookup_field = 'uuid'
+    lookup_field = 'qrcode'
     filter_backends = [DjangoFilterBackend,filters.SearchFilter]
     filterset_fields = ['category','validity','qrcode']
-    search_fields = ['qrcode','uuid']
+    search_fields = ['=uuid']
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -31,7 +31,7 @@ class ScanLogsViewSet(viewsets.ModelViewSet):
     lookup_field = 'id'
     filter_backends = [DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter]
     filterset_fields = ['status_recorded', 'scan_time', 'ticket']
-    search_fields = ['scanned_by__username']
+    search_fields = ['=scanned_by__username']
     ordering = ['-scan_time']
 
     def perform_create(self, serializer):
