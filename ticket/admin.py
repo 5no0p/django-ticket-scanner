@@ -1,6 +1,11 @@
 from django.contrib import admin
 from ticket.models import Ticket,Category,ScanLogs
 from ticket.actions import make_valid
+
+from payment.models import Payment
+
+class PaymentInline(admin.TabularInline):
+    model = Payment
 class TicketAdmin(admin.ModelAdmin):
     exclude = ('qrcode',)
     list_display = ['uuid', 'name', 'validity', 'category', 'table']
@@ -8,6 +13,9 @@ class TicketAdmin(admin.ModelAdmin):
     list_filter = ['category',["qrcode", admin.EmptyFieldListFilter]]
     search_fields = ['qrcode']
     actions = [make_valid]
+    inlines = [
+        PaymentInline,
+    ]
         
 class CategoryAdmin(admin.ModelAdmin):
     pass
