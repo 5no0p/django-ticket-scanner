@@ -7,8 +7,8 @@ from payment.models import Payment
 class PaymentInline(admin.TabularInline):
     model = Payment
 class TicketAdmin(admin.ModelAdmin):
-    exclude = ('qrcode',)
-    list_display = ['uuid', 'name', 'validity', 'category', 'table']
+    exclude = ('qrcode','tid')
+    list_display = ['tid', 'name', 'validity', 'category', 'table']
     ordering = ['category']
     list_filter = ['category',["qrcode", admin.EmptyFieldListFilter]]
     search_fields = ['qrcode']
