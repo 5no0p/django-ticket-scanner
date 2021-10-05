@@ -27,7 +27,7 @@ class Event(models.Model):
     def __str__(self):
         return self.name
 
-    def save(self):
+    def save(self,*args, **kwargs):
         import secrets
         import string
 
