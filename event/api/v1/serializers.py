@@ -7,5 +7,5 @@ class EventSerializer(serializers.ModelSerializer):
     owner = UserPaymentSerializer()
     class Meta:
         model = Event
-        fields = ['uuid', 'name', 'active_in', 'discripton', 'owner']
+        fields = ['uuid','eid', 'name', 'active_in', 'discripton', 'owner']
         

@@ -59,7 +59,7 @@ class TicketSerializer(serializers.ModelSerializer):
     #ticket_qrcode = QrcodeTicketSerializer(many=True)
     class Meta:
         model = Ticket
-        fields = ['uuid', 'name', 'category', 'validity', "payment_info",'table','qrcode']
+        fields = ['uuid','tid', 'name', 'category', 'validity', "payment_info",'table','qrcode']
 
 class CategorySerializer(serializers.ModelSerializer):
     event = EventCategorySerializer()

@@ -82,10 +82,12 @@ AUTHENTICATION_BACKENDS = (
 )
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        
+    'DEFAULT_AUTHENTICATION_CLASSES': [   
         'rest_framework.authentication.TokenAuthentication',
     ]
+}
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'users.api.v1.serializers.UserSerializer',
 }
 
 
