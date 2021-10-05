@@ -12,7 +12,16 @@ class TicketViewSet(viewsets.ModelViewSet):
     lookup_field = 'tid'
     filter_backends = [DjangoFilterBackend,filters.SearchFilter]
     filterset_fields = ['category','validity','qrcode']
-    search_fields = ['=tid']
+    search_fields = ['=qrcode']
+
+class QrcodeViewSet(viewsets.ModelViewSet):
+    queryset = Ticket.objects.all()
+    serializer_class = TicketSerializer
+    permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
+    lookup_field = 'qrcode'
+    # filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+    # filterset_fields = ['category','validity','qrcode']
+    # search_fields = ['=qrcode']
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
