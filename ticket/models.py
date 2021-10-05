@@ -55,11 +55,11 @@ class Ticket(models.Model):
             chars = string.ascii_letters + string.digits
             #special_chars = '_!/?'
             length = 30
-            uiLenth = 12
+            uiLenth = 13
 
             if not self.qrcode:
                 while True:
-                    passwd = ''.join([secrets.choice(chars) for i in range(length - 1)])
+                    passwd = ''.join([secrets.choice(chars) for i in range(length)]) #range(length-1)
                     #passwd += secrets.choice(special_chars)
                     if (any(s.islower() for s in passwd) and 
                         any(s.isupper() for s in passwd) and 
@@ -67,7 +67,8 @@ class Ticket(models.Model):
                             break
                 self.qrcode = passwd
             if not self.tid:
-                uid = ''.join([secrets.choice(chars) for i in range(uiLenth - 1)])
+                uid = ''.join([secrets.choice(string.ascii_lowercase) for i in range(uiLenth-10)])
+                uid += ''.join([secrets.choice(string.digits) for i in range(uiLenth-3)])
                 self.tid = uid
         super(Ticket, self).save(*args, **kwargs)
 
