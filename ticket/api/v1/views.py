@@ -9,10 +9,10 @@ class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
     permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
-    lookup_field = 'qrcode'
+    lookup_field = 'tid'
     filter_backends = [DjangoFilterBackend,filters.SearchFilter]
     filterset_fields = ['category','validity','qrcode']
-    search_fields = ['=uuid']
+    search_fields = ['=tid']
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
