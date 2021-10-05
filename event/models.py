@@ -17,6 +17,7 @@ class Event(models.Model):
          primary_key = False,
          default = uuid.uuid4,
          editable = False,unique=True)
+    eid = models.CharField(max_length=13,null=True,blank=True)
     name = models.CharField(max_length=200)
     #slug = models.SlugField(max_length=250,null=True,blank=True)
     discripton = models.CharField(max_length=350)
@@ -25,3 +26,24 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self):
+        import secrets
+        import string
+
+        chars = string.ascii_letters + string.digits
+        #special_chars = '_!/?'
+        length = 12
+        
+
+        while True:
+            passwd = ''.join([secrets.choice(chars) for i in range(length - 1)])
+            #passwd += secrets.choice(special_chars)
+            if (any(s.islower() for s in passwd) and 
+                any(s.isdigit() for s in passwd)):
+                    break
+    
+        
+        self.eid = passwd
+        super(Event, self).save(*args, **kwargs)
+       

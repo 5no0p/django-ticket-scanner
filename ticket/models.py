@@ -34,7 +34,9 @@ class Ticket(models.Model):
          primary_key = False,
          default = uuid.uuid4,
          editable = False,unique=True)
+    tid = models.CharField(max_length=13,null=True,blank=True)
     name = models.CharField(max_length=150)
+    phone = models.CharField(max_length=10,null=True,blank=True)
     validity = models.BooleanField(default=True)
     category = models.ForeignKey(Category,related_name="tickets",null=True ,on_delete=models.CASCADE)
     table = models.IntegerField(null=True)
@@ -46,26 +48,27 @@ class Ticket(models.Model):
 
     @transaction.atomic
     def save(self, *args, **kwargs):
-        if not self.qrcode:
+        if not self.qrcode or not self.tid:
             import secrets
             import string
-
-            chars = string.ascii_letters + string.digits
-            special_chars = '_!/?'
-            length = 30
-
-            while True:
-                passwd = ''.join([secrets.choice(chars) for i in range(length - 1)])
-                #passwd += secrets.choice(special_chars)
-                if (any(s.islower() for s in passwd) and 
-                    any(s.isupper() for s in passwd) and 
-                    any(s.isdigit() for s in passwd)):
-                        break
         
-            
-            self.qrcode = passwd
-            print(passwd)
-        # VQvnW1Uy22F?
+            chars = string.ascii_letters + string.digits
+            #special_chars = '_!/?'
+            length = 30
+            uiLenth = 12
+
+            if not self.qrcode:
+                while True:
+                    passwd = ''.join([secrets.choice(chars) for i in range(length - 1)])
+                    #passwd += secrets.choice(special_chars)
+                    if (any(s.islower() for s in passwd) and 
+                        any(s.isupper() for s in passwd) and 
+                        any(s.isdigit() for s in passwd)):
+                            break
+                self.qrcode = passwd
+            if not self.tid:
+                uid = ''.join([secrets.choice(chars) for i in range(uiLenth - 1)])
+                self.tid = uid
         super(Ticket, self).save(*args, **kwargs)
 
 
