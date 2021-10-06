@@ -29,12 +29,12 @@ class CategoryTicketSerializer(serializers.ModelSerializer):
 class TicketCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
-        fields = ['uuid','name', 'validity']
+        fields = ['tid','name', 'validity']
 
 class TicketScanLogsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
-        fields = ['uuid']
+        fields = ['tid']
 
 class EventCategorySerializer(serializers.ModelSerializer):
     class Meta:

@@ -84,7 +84,10 @@ AUTHENTICATION_BACKENDS = (
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [   
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 30,
+
 }
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'users.api.v1.serializers.UserSerializer',

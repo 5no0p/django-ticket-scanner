@@ -1,5 +1,6 @@
 from rest_framework import viewsets, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
+from ticket.api.v1.pagination import ScanLogsPagination, TicketPagination
 from ticket.api.v1.serializers import TicketSerializer,CategorySerializer,ScanLogsSerializer
 from ticket.models import Ticket,Category,ScanLogs
 from users.models import User
@@ -8,6 +9,7 @@ from users.models import User
 class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
+    pagination_class = TicketPagination
     permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
     lookup_field = 'tid'
     filter_backends = [DjangoFilterBackend,filters.SearchFilter]
@@ -36,6 +38,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class ScanLogsViewSet(viewsets.ModelViewSet):
     queryset = ScanLogs.objects.all()#.order_by('-scan_time')
     serializer_class = ScanLogsSerializer
+    pagination_class = ScanLogsPagination
     permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
     lookup_field = 'id'
     filter_backends = [DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter]
