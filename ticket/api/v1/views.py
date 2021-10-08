@@ -12,8 +12,9 @@ class TicketViewSet(viewsets.ModelViewSet):
     pagination_class = TicketPagination
     permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
     lookup_field = 'tid'
+    ordering = ['isSend']
     filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-    filterset_fields = ['category','validity','qrcode']
+    filterset_fields = ['category','validity','phone']
     search_fields = ['=qrcode']
 
 class QrcodeViewSet(viewsets.ModelViewSet):

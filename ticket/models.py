@@ -41,6 +41,7 @@ class Ticket(models.Model):
     category = models.ForeignKey(Category,related_name="tickets",null=True ,on_delete=models.CASCADE)
     table = models.IntegerField(null=True)
     qrcode = models.CharField(max_length=100,unique=True,null=True,blank=True)
+    isSend = models.BooleanField(default=False)
 
 
     def __str__(self):
