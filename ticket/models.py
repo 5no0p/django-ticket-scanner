@@ -44,6 +44,9 @@ class Ticket(models.Model):
     isSend = models.BooleanField(default=False)
     number = models.PositiveIntegerField(null=True,blank=True)
 
+    class Meta:
+        ordering = ['isSend','number']
+
 
     def __str__(self):
         return self.name
