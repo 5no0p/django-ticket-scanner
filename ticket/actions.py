@@ -9,3 +9,17 @@ def make_valid(modeladmin, request, queryset):
             '%d tickets were successfully marked as valid.',
             updated,
         ) % updated, messages.SUCCESS)
+
+@admin.action(description='Mark selected tickets have a number')
+def make_number(modeladmin, request, queryset):
+    for q in queryset:
+        if q.number == None:
+            try:
+                q.number=int(q.name)
+                q.save()
+            except Exception:
+                pass
+    # modeladmin.message_user(request, ngettext(
+    #         '%d ticket was successfullya get a number.',
+    #         '%d tickets were successfullya get a number.',
+    #         ) % messages.SUCCESS)

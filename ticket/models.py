@@ -39,7 +39,7 @@ class Ticket(models.Model):
     phone = models.CharField(max_length=10,null=True,blank=True)
     validity = models.BooleanField(default=True)
     category = models.ForeignKey(Category,related_name="tickets",null=True ,on_delete=models.CASCADE)
-    table = models.IntegerField(null=True)
+    table = models.IntegerField(null=True,blank=True)
     qrcode = models.CharField(max_length=100,unique=True,null=True,blank=True)
     isSend = models.BooleanField(default=False)
     number = models.PositiveIntegerField(null=True,blank=True)

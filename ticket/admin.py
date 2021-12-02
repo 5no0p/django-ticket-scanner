@@ -1,6 +1,6 @@
 from django.contrib import admin
 from ticket.models import Ticket,Category,ScanLogs
-from ticket.actions import make_valid
+from ticket.actions import make_valid, make_number
 
 from payment.models import Payment
 
@@ -12,7 +12,7 @@ class TicketAdmin(admin.ModelAdmin):
     ordering = ['category']
     list_filter = ['category',["qrcode", admin.EmptyFieldListFilter]]
     search_fields = ['qrcode']
-    actions = [make_valid]
+    actions = [make_valid,make_number]
     inlines = [
         PaymentInline,
     ]

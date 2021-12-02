@@ -25,4 +25,5 @@ class UserSerializer(serializers.ModelSerializer):
     groups = GroupSerializer(many=True)
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'phoneNumber', 'user_permissions', 'groups']
+        #fields = ['id', 'username', 'email', 'phoneNumber', 'user_permissions', 'groups']
+        exclude = ['password']
