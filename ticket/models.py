@@ -42,6 +42,7 @@ class Ticket(models.Model):
     table = models.IntegerField(null=True)
     qrcode = models.CharField(max_length=100,unique=True,null=True,blank=True)
     isSend = models.BooleanField(default=False)
+    number = models.PositiveIntegerField(null=True,blank=True)
 
 
     def __str__(self):

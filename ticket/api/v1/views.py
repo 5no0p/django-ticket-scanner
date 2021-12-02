@@ -1,5 +1,10 @@
-from rest_framework import viewsets, permissions, filters
+import secrets
+import string
+
+from rest_framework import viewsets, permissions, filters, status
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from ticket.api.v1.pagination import ScanLogsPagination, TicketPagination
 from ticket.api.v1.serializers import TicketSerializer,CategorySerializer,ScanLogsSerializer
 from ticket.models import Ticket,Category,ScanLogs
@@ -12,10 +17,41 @@ class TicketViewSet(viewsets.ModelViewSet):
     pagination_class = TicketPagination
     permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
     lookup_field = 'tid'
-    ordering = ['isSend']
+    ordering = ['number','isSend']
     filter_backends = [DjangoFilterBackend,filters.SearchFilter]
     filterset_fields = ['category','validity','phone']
     search_fields = ['=qrcode']
+
+    @action(methods=['post'],detail=False, url_path='multi')
+    def multi(self, request, pk=None):
+        chars = string.ascii_letters + string.digits
+        length = 30
+        uiLenth = 13
+        qrcode=''
+        tid=''
+        tickets_list=[]
+        data = request.data
+        number = int(data['id'])
+        category = Category.objects.get_or_create(name=data['category'])
+        for x in range(1, int(data['count'])+1):
+            while True:
+                qrcode = ''.join([secrets.choice(chars) for i in range(length)]) #range(length-1)
+                #passwd += secrets.choice(special_chars)
+                if (any(s.islower() for s in qrcode) and 
+                    any(s.isupper() for s in qrcode) and 
+                    any(s.isdigit() for s in qrcode)):
+                        break
+            
+            tid = ''.join([secrets.choice(string.ascii_lowercase) for i in range(uiLenth-10)])
+            tid += ''.join([secrets.choice(string.digits) for i in range(uiLenth-3)])
+            tickets_list.append(Ticket(category=Category.objects.get(name=data['category']),
+                                        number=number,
+                                        qrcode=qrcode,
+                                        tid=tid))
+            number+= 1
+        Ticket.objects.bulk_create(tickets_list)
+
+        return Response(status.HTTP_201_CREATED)
 
 class QrcodeViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()

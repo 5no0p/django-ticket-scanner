@@ -20,6 +20,8 @@ django-environ = "*"
 django-colorfield = "*"
 
 [dev-packages]
+django-extensions = "*"
+ipython = "*"
 
 [requires]
 python_version = "3.9"
