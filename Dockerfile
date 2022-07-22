@@ -11,7 +11,7 @@ WORKDIR /app
 RUN pip install --upgrade pip
 RUN pip install pipenv
 COPY ./Pipfile ./Pipfile.lock /app/
-RUN pipenv install 
+RUN pipenv install --dev --system --deploy
 
 
 # Add the rest of the code
