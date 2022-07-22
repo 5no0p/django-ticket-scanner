@@ -43,10 +43,14 @@ class Ticket(models.Model):
     qrcode = models.CharField(max_length=100,unique=True,null=True,blank=True)
     isSend = models.BooleanField(default=False)
     number = models.PositiveIntegerField(null=True,blank=True)
-
+    is_checked = models.BooleanField(default=False)
+    
     class Meta:
         ordering = ['isSend','number']
-
+        permissions=[
+            ("change_validity_status", "Can change the validity status of ticket"),
+            ("change_checked_status", "Can change the check status of the ticket")
+        ]
 
     def __str__(self):
         return self.name

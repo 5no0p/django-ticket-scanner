@@ -130,7 +130,7 @@ dmypy.json
 .pyre/
 
 #pipenv
-Pipfile.lock
+#Pipfile.lock
 
 #helper scripts
 heroku-config.py

@@ -19,7 +19,7 @@ class TicketViewSet(viewsets.ModelViewSet):
     lookup_field = 'tid'
     # ordering = ['-isSend']
     filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-    filterset_fields = ['category','validity','phone', 'name']
+    filterset_fields = ['category','validity', 'is_checked','phone', 'name']
     search_fields = ['=qrcode']
 
     @action(methods=['post'],detail=False, url_path='multi')
