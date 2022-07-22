@@ -9,3 +9,12 @@ def make_valid(modeladmin, request, queryset):
             '%d tickets were successfully marked as valid.',
             updated,
         ) % updated, messages.SUCCESS)
+
+@admin.action(description='Mark selected tickets as unchecked')
+def make_unchecked(modeladmin, request, queryset):
+    updated = queryset.update(is_checked = False)
+    modeladmin.message_user(request, ngettext(
+            '%d ticket was successfully marked as unchecked.',
+            '%d tickets were successfully marked as unchecked.',
+            updated,
+        ) % updated, messages.SUCCESS)

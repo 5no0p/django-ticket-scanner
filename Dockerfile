@@ -10,7 +10,7 @@ WORKDIR /app
 # Install Python dependencies
 RUN pip install --upgrade pip
 RUN pip install pipenv
-COPY ./Pipfile /app/
+COPY ./Pipfile ./Pipfile.lock /app/
 RUN pipenv install 
 
 

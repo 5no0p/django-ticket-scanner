@@ -1,6 +1,6 @@
 from django.contrib import admin
 from ticket.models import Ticket,Category,ScanLogs
-from ticket.actions import make_valid
+from ticket.actions import make_valid, make_unchecked
 
 from payment.models import Payment
 
@@ -9,11 +9,11 @@ class PaymentInline(admin.TabularInline):
     
 class TicketAdmin(admin.ModelAdmin):
     exclude = ('qrcode','tid')
-    list_display = ['tid', 'name', 'validity', 'category', 'table']
+    list_display = ['tid', 'name', 'validity', 'is_checked', 'category', 'table']
     ordering = ['category']
     list_filter = ['category',["qrcode", admin.EmptyFieldListFilter]]
     search_fields = ['qrcode']
-    actions = [make_valid]
+    actions = [make_valid, make_unchecked]
     inlines = [
         PaymentInline,
     ]
