@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from ticket.models import Ticket,Category,ScanLogs
+from ticket.models import Ticket,Category,ScanLogs, SecurityLayer, TicketCheck
 from payment.models import Payment
 from users.models import User
 from event.models import Event
@@ -76,3 +76,15 @@ class ScanLogsSerializer(serializers.ModelSerializer):
         fields = ['id', 'ticket', 'scan_time', 'scanned_by', 'status_recorded']
 
     
+class SecurityLayerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SecurityLayer
+        fields = ['id', 'name', 'layer', 'members']
+
+class TicketCheckSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TicketCheck
+        fields = ['id', 'ticket'
+                'security_layer'
+                'checked_by'
+                'checked_at']

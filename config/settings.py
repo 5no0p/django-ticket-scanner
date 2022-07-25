@@ -43,6 +43,7 @@ EXTENSIONS_APPS = [
     'corsheaders',
     'whitenoise.runserver_nostatic',
     'colorfield',
+    'django_extensions'
     ]
 
 OWEND_APPS = [

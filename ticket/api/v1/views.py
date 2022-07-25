@@ -6,8 +6,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from ticket.api.v1.pagination import ScanLogsPagination, TicketPagination
-from ticket.api.v1.serializers import TicketSerializer,CategorySerializer,ScanLogsSerializer
-from ticket.models import Ticket,Category,ScanLogs
+from ticket.api.v1.serializers import TicketSerializer,CategorySerializer,ScanLogsSerializer, SecurityLayerSerializer, TicketCheckSerializer
+from ticket.models import Ticket,Category,ScanLogs, SecurityLayer, TicketCheck
 from users.models import User
 
 
@@ -87,3 +87,15 @@ class ScanLogsViewSet(viewsets.ModelViewSet):
         ticket=self.request.data['ticket']
         ticket_instance, created = Ticket.objects.get_or_create(uuid=ticket)
         serializer.save(scanned_by=self.request.user,ticket=ticket_instance)
+
+class SecurityLayerViewSet(viewsets.ModelViewSet):
+    queryset = SecurityLayer.objects.all()
+    serializer_class = SecurityLayerSerializer
+    permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
+    lookup_field = 'layer'
+
+class TicketCheckViewSet(viewsets.ModelViewSet):
+    queryset = TicketCheck.objects.all()
+    serializer_class = TicketCheckSerializer
+    permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
+    lookup_field = 'ticket'

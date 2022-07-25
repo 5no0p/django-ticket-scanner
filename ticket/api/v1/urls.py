@@ -7,6 +7,8 @@ router.register(r'tickets', views.TicketViewSet)
 router.register(r'categories', views.CategoryViewSet)
 router.register(r'scanlogs', views.ScanLogsViewSet)
 router.register(r'qrcodes', views.QrcodeViewSet)
+router.register(r'securities', views.SecurityLayerViewSet)
+router.register(r'ticketcheckes', views.TicketCheckViewSet)
 
 
 # Wire up our API using automatic URL routing.

@@ -1,9 +1,14 @@
 import uuid
 
 from django.db import models, transaction
-from colorfield.fields import ColorField
-from event.models import Event
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+
+from colorfield.fields import ColorField
+
+from event.models import Event
 
 
 SCAN_STAUTS_CHOICES = (
@@ -91,3 +96,26 @@ class ScanLogs(models.Model):
 
     def __str__(self):
         return self.status_recorded
+
+
+class SecurityLayer(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    layer = models.PositiveSmallIntegerField(unique=True, null=True, blank=False)
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='security')
+
+    class Meta:
+        ordering = ['layer']
+
+    def clean(self) -> None:
+        if self.layer > (SecurityLayer.objects.all().count() + 1):
+            raise ValidationError({'layer':_(F'Security layer should not be more than {SecurityLayer.objects.all().count() + 1}')})
+
+    def save(self, *args, **kwargs) -> None:
+        self.full_clean()
+        return super(SecurityLayer, self).save(*args, **kwargs)
+
+class TicketCheck(models.Model):
+    ticket = models.ForeignKey(Ticket, related_name='check_process', on_delete=models.CASCADE)
+    security_layer = models.ForeignKey(SecurityLayer, related_name='ticket_check', on_delete=models.CASCADE)
+    checked_by = models.ForeignKey(settings.AUTH_USER_MODEL,related_name="ticket_check", on_delete=models.CASCADE)
+    checked_at = models.TimeField(default=timezone.now)
